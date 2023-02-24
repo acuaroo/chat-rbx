@@ -10,6 +10,8 @@ import numpy as np
 import pytesseract as pytes
 import pandas as pd
 
+# https://github.com/UB-Mannheim/tesseract/wiki
+
 pytes.pytesseract.tesseract_cmd = "C:\Program Files\Tesseract-OCR\\tesseract.exe"
 session_id = "SID_"+datetime.now().strftime("%Y%m%d%H%M%S")
 
