@@ -46,11 +46,4 @@ with mss.mss() as sct:
         print("text read: "+text)
 
         data["text"].append(text)
-
-        #cv2.imshow('Image', im)
-
-        # if cv2.waitKey(25) & 0xFF == ord('1'):
-        #     cv2.destroyAllWindows()
-        #     break
-
     
