@@ -13,10 +13,16 @@ import pandas as pd
 # https://github.com/UB-Mannheim/tesseract/wiki
 
 #"C:\Users\mmnair01\AppData\Local\Programs\Tesseract-OCR\\tesseract.exe"
-pytes.pytesseract.tesseract_cmd = r"C:\Users\mmnair01\AppData\Local\Programs\Tesseract-OCR\\tesseract.exe"
-session_id = "SID_"+datetime.now().strftime("%Y%m%d%H%M%S")
+tesseract_location = open("tesseract_path", "r").read()
+tesseract_location = r'{}'.format(tesseract_location)
 
-selection = {'top': 300, 'left': 0, 'width': 550, 'height': 60}
+pytes.pytesseract.tesseract_cmd = tesseract_location
+
+name = input("what's your username?\n")
+
+session_id = name+datetime.now().strftime("%Y%m%d%H%M%S")
+
+selection = {'top': 262, 'left': 0, 'width': 575, 'height': 45}
 
 print(selection)
 input("["+session_id+"] is the SID, press enter to start...")
@@ -30,7 +36,7 @@ def filter_text(string):
     res = []
 
     for i in split_string:
-        if len(i)!=0:
+        if len(i) != 0:
             if (i.find("[") and i.find("]:")):
                 res.append(i)
                 
@@ -43,9 +49,10 @@ def signal_handler(signal, frame):
 
     filename = session_id+".csv"
     data_frame = pd.DataFrame(data)
-    data_frame.to_csv(filename, mode='a', index=False, header=False)
+    data_frame.to_csv("training-data/"+filename, mode='a', index=False, header=False)
 
-    print("data saved in "+filename)
+    print("session complete. data generated: "+str(len(data["text"])))
+    print("data saved in training-data/"+filename)
     sys.exit(0)
 
 signal.signal(signal.SIGINT, signal_handler)
@@ -62,10 +69,14 @@ with mss.mss() as sct:
         text = pytes.image_to_string(im)
         text = filter_text(text)
 
+        if text == "":
+            print("empty text, skipping")
+            continue
+
         text = text.replace('\n', ' ').replace('\r', '')
         
-        if len(data["text"]) > 0 and data["text"].pop() == text:
-            print("text is the same, skipping...")
+        if len(data["text"]) > 0 and data["text"][-1] == text:
+            print("skipping duplicate text...")
         else:
             print("text read: "+text)
 
