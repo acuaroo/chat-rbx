@@ -41,6 +41,8 @@ def filter_text(string):
                 res.append(i)
                 
     res=" ".join(res)
+    
+    res = res.encode("ascii", "ignore").decode()
 
     return res
 
