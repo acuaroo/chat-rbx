@@ -1,5 +1,4 @@
-![chat-rbx](https://user-images.githubusercontent.com/67112172/221208318-f0c564fb-d2f2-4abb-bd27-7dd24b2482d6.jpg)
-
-# chat-rbx
+![chat](https://user-images.githubusercontent.com/67112172/221589454-a2180a35-d925-4f35-9ad7-74595fbb7156.jpg)
+---
 
 a small chatbot based off of roblox players text!
