@@ -6,7 +6,7 @@ import re
 
 directory = 'training-data'
 valid_words = set(x[:-1].lower() for x in open('dictionary.txt').readlines())
-valid_characters = r"-+_?.,!$/1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+ban_characters = "|:[]"
 
 dfs = []
 
@@ -24,15 +24,13 @@ for filename in os.listdir(directory):
 
     df = df.iloc[:,0].str.lower()
 
-    #df = df.str.replace('[^'+valid_characters+']', ' ')
+    for sentence in df.str.split():
+        for word in sentence:
+            if not (word in valid_words):
+                df.replace(word, '', inplace=True)
+                #print(word)
 
-    for w in df.str.split():
-        if not (any(word in w for word in valid_words)):
-            df.replace(w, '', inplace=True)
-            print(w)
-
-    print(df)
     dfs.append(df)
 
 df = pd.concat(dfs)
-df.to_csv('clean-data/cleaned.csv', index=False, header=False)
+df.to_csv('clean-data/clean.csv', index=False, header=False)
