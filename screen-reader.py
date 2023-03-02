@@ -22,7 +22,7 @@ name = input("what's your username?\n")
 
 session_id = name+datetime.now().strftime("%Y%m%d%H%M%S")
 
-selection = {'top': 255, 'left': 0, 'width': 425, 'height': 45}
+selection = {'top': 260, 'left': 0, 'width': 475, 'height': 45}
 
 print(selection)
 input("["+session_id+"] is the SID, press enter to start...")
