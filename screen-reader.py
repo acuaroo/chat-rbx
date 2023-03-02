@@ -30,7 +30,6 @@ input("["+session_id+"] is the SID, press enter to start...")
 def filter_text(string):
     string = string.replace("[","*[")
     string = string.replace("]:","]:*")
-
     split_string = string.split("*")
 
     res = []
