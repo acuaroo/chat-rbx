@@ -26,9 +26,15 @@ for filename in os.listdir(directory):
 
     for sentence in df.str.split():
         for word in sentence:
+            cleaned_word = word.strip()
+            cleaned_word = ''.join(filter(str.isalpha, cleaned_word))
+
+            df.replace(word, cleaned_word, inplace=True)
+
             if not (word in valid_words):
                 df.replace(word, '', inplace=True)
                 #print(word)
+                #print(cleaned_word, word)
 
     dfs.append(df)
 
