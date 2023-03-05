@@ -22,7 +22,7 @@ name = input("what's your username?\n")
 
 session_id = name+datetime.now().strftime("%Y%m%d%H%M%S")
 
-selection = {'top': 260, 'left': 0, 'width': 475, 'height': 45}
+selection = {'top': 260, 'left': 0, 'width': 550, 'height': 45}
 
 print(selection)
 input("["+session_id+"] is the SID, press enter to start...")
@@ -45,15 +45,20 @@ def filter_text(string):
 
     return res
 
-def signal_handler(signal, frame):
-    print("saving data...")
-
+def save_data():
     filename = session_id+".csv"
     data_frame = pd.DataFrame(data)
     data_frame.to_csv("training-data/"+filename, mode='a', index=False, header=False)
 
-    print("session complete. data generated: "+str(len(data["text"])))
     print("data saved in training-data/"+filename)
+
+def signal_handler(signal, frame):
+    print("saving data...")
+
+    save_data()
+
+    print("session complete. data generated: "+str(len(data["text"])))
+    
     sys.exit(0)
 
 signal.signal(signal.SIGINT, signal_handler)
@@ -82,4 +87,9 @@ with mss.mss() as sct:
             print("text read: "+text)
 
             data["text"].append(text)
+        
+        if len(data["text"]) >= 2500:
+            save_data()
+            data["text"] = []
+            session_id = name+datetime.now().strftime("%Y%m%d%H%M%S")
     
