@@ -22,21 +22,35 @@ for filename in os.listdir(directory):
     df.replace('', np.nan, inplace=True)
     df.dropna(inplace=True)
 
-    df = df.iloc[:,0].str.lower()
-
+    df = df.iloc[:,0]
+    
     for sentence in df.str.split():
         for word in sentence:
-            cleaned_word = word.strip()
-            cleaned_word = ''.join(filter(str.isalpha, cleaned_word))
+            if not (word.lower() in valid_words):
+                old_scentence = ' '.join(sentence)
 
-            df.replace(word, cleaned_word, inplace=True)
-
-            if not (word in valid_words):
-                df.replace(word, '', inplace=True)
-                #print(word)
-                #print(cleaned_word, word)
+                sentence.remove(word)
+                new_scentence = ' '.join(sentence)
+                
+                df = df.str.replace(old_scentence, new_scentence, regex=False)
 
     dfs.append(df)
 
 df = pd.concat(dfs)
+
+df = df.str.replace('[', '', regex=False)
+df = df.str.replace(']', '', regex=False)
+df = df.str.replace('{', '', regex=False)
+df = df.str.replace('}', '', regex=False)
+df = df.str.replace('(', '', regex=False)
+df = df.str.replace(')', '', regex=False)
+df = df.str.replace(':', '', regex=False)
+df = df.str.replace('_', '', regex=False)
+
+df = df.str.strip()
+
+df.replace('', np.nan, inplace=True)
+
+df.dropna(inplace=True)
+
 df.to_csv('clean-data/clean.csv', index=False, header=False)
