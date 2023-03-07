@@ -2,7 +2,6 @@ import pandas as pd
 import os
 from os import path
 import numpy as np
-import re
 
 directory = 'training-data'
 valid_words = set(x[:-1].lower() for x in open('assets/dictionary.txt').readlines())
