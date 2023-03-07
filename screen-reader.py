@@ -1,7 +1,6 @@
 from time import sleep
 from datetime import datetime
 
-import cv2
 import mss
 import signal
 import sys
@@ -12,8 +11,12 @@ import pandas as pd
 
 # https://github.com/UB-Mannheim/tesseract/wiki
 
-#"C:\Users\mmnair01\AppData\Local\Programs\Tesseract-OCR\\tesseract.exe"
-tesseract_location = open("tesseract_path", "r").read()
+# go into assets, and make a file called "tesseract_path"
+# in that file, put the path to your tesseract.exe
+# for example, if your tesseract.exe is in C:\Program Files\Tesseract-OCR\tesseract.exe
+# then you would put C:\Program Files\Tesseract-OCR\tesseract.exe in the file
+
+tesseract_location = open("assets/tesseract_path", "r").read()
 tesseract_location = r'{}'.format(tesseract_location)
 
 pytes.pytesseract.tesseract_cmd = tesseract_location

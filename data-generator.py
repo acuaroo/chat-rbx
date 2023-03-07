@@ -5,7 +5,7 @@ import numpy as np
 import re
 
 directory = 'training-data'
-valid_words = set(x[:-1].lower() for x in open('dictionary.txt').readlines())
+valid_words = set(x[:-1].lower() for x in open('assets/dictionary.txt').readlines())
 ban_characters = "|:[]"
 
 dfs = []
