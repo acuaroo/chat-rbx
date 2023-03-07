@@ -4,9 +4,8 @@ from os import path
 import numpy as np
 import re
 
-directory = 'training-data'
+directory = 'hard-clean'
 valid_words = set(x[:-1].lower() for x in open('dictionary.txt').readlines())
-ban_characters = "|:[]"
 
 dfs = []
 
@@ -23,7 +22,7 @@ for filename in os.listdir(directory):
     df.dropna(inplace=True)
 
     df = df.iloc[:,0]
-    
+
     for sentence in df.str.split():
         for word in sentence:
             if not (word.lower() in valid_words):
@@ -32,7 +31,6 @@ for filename in os.listdir(directory):
                 sentence.remove(word)
                 new_scentence = ' '.join(sentence)
                 
-                print(word)
                 df = df.str.replace(old_scentence, new_scentence, regex=False)
 
     dfs.append(df)
@@ -48,10 +46,7 @@ df = df.str.replace(')', '', regex=False)
 df = df.str.replace(':', '', regex=False)
 df = df.str.replace('_', '', regex=False)
 
-df = df.str.strip()
-
 df.replace('', np.nan, inplace=True)
-
 df.dropna(inplace=True)
 
-df.to_csv('clean-data/clean.csv', index=False, header=False)
+df.to_csv('training-data/hard-clean.csv', index=False, header=False)
