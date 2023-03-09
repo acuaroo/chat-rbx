@@ -1,7 +1,7 @@
 import wx
 import win32gui
 
-selection = {'top': 258, 'left': 5, 'width': 400, 'height': 25}
+selection = {'top': 260, 'left': 10, 'width': 600, 'height': 20}
 
 class Desktop(wx.Frame):
     def __init__(self):
