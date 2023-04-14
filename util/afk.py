@@ -12,11 +12,6 @@ oppisite = {
 }
 
 def random_move():
-    #make it press alt tab every other time this function is called
-    keyboard.press(Key.alt)
-    sleep(0.1)
-    keyboard.press(Key.tab)
-
     choice = random.choice(["w","a","s","d"])
     keyboard.press(choice)
     sleep(0.1)
