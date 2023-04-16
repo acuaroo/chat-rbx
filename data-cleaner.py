@@ -28,6 +28,8 @@ cleaned_data = pd.concat(cleaned_data)
 cleaned_data = cleaned_data.replace(r'^\s*$', np.nan, regex=True)
 cleaned_data = cleaned_data.dropna()
 
+cleaned_data = cleaned_data.replace("", '', regex=False)
+
 cleaned_data = cleaned_data.apply(lambda x: x.str.strip())
 
 cleaned_data = cleaned_data.replace(r'\s+', ' ', regex=True)
