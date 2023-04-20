@@ -21,6 +21,16 @@ def random_move():
     sleep(0.1)
     keyboard.release(oppisite[choice])
 
+def select_move():
+    choice = random.choice(["w"])
+    keyboard.press(choice)
+    sleep(0.1)
+    keyboard.release(choice)
+    sleep(0.1)
+    keyboard.press(oppisite[choice])
+    sleep(0.1)
+    keyboard.release(oppisite[choice])
+
 while True:
-    random_move()
+    select_move()
     sleep(5)
